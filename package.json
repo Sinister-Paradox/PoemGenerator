@@ -1,0 +1,22 @@
+{
+  "name": "poemgenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sinister-Paradox/PoemGenerator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sinister-Paradox/PoemGenerator/issues"
+  },
+  "homepage": "https://github.com/Sinister-Paradox/PoemGenerator#readme",
+  "dependencies": {
+    "csv-parser": "^2.3.0"
+  }
+}
