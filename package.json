@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Sinister-Paradox/PoemGenerator#readme",
   "dependencies": {
+    "csv": "^5.1.1",
     "csv-parser": "^2.3.0"
   }
 }
