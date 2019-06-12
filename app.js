@@ -2,6 +2,13 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 
+
+fs.readFile('brooke.txt', (err, data) => { 
+    if (err) throw err; 
+  
+    //console.log(data.toString()); 
+})
+
 http.createServer(function(req, res){
     var q = url.parse(req.url, true);
     var filename = "." + q.pathname;
@@ -13,6 +20,10 @@ http.createServer(function(req, res){
         else{
             res.writeHead(200, {'Content-Type':'text/html'});
         }
+        res.write(data)
         return res.end();
     });
 }).listen(8080);
+
+markovData = {};
+startWords = {}
