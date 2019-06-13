@@ -54,15 +54,34 @@ lineReader.on('line', function (line) {
     }
     //console.log(data)
 }).on('close',function(){
-    console.log(data)
     console.log("FINISHED LOADED DATA")
-    console.log(generate())
+    Gen()
 });
-function Setup(){
-    
-    
+function getWord(word){
+    var randomNumber = Math.random()*(data.get(word).sum)
+    var words = data.get(word).follow
+    var k =0
+    var pk = 0
+    for (var i =0;i<words.length;i++){
+        pk += data.get(word).repeat[i]
+        if (randomNumber<pk){
+            return words[i]
+        }
+    }
+    return "\n"
 }
 function Gen(){
+    var len = 1000
+    var rap = ""
+    
+    var word =getWord("i") 
+    for (var i =0;i<len;++i){
+        word =getWord(word)
+        rap+= word
+        
+        rap+=" "
+    }
+    console.log(rap)
 }
 http.createServer(function(req, res){
     var q = url.parse(req.url, true);
@@ -79,7 +98,3 @@ http.createServer(function(req, res){
         return res.end();
     });
 }).listen(8080);
-
-function generate(){
-    
-}
