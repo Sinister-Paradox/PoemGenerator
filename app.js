@@ -3,39 +3,39 @@ const url = require('url');
 const fs = require('fs');
 const readline = require('readline')
 
-var data = {}
+var data = new Map()
 
 var lineReader = readline.createInterface({
   input: fs.createReadStream('brooke.txt')
 });
 
-
 lineReader.on('line', function (line) {
     if(line.startsWith("RHYME") || line.startsWith("TITLE")){
     }
     else{
-        line = line.trim()
+        line = line.trim().toLowerCase()
         words = line.split(" ")
         
         var prev = words[0]
-        
-        console.log(line)
-        
+                
         for(var i = 1;i<words.length;i++){
             var word = words[i]
-            console.log(data[prev])
-            if(data[prev] == undefined){
-                data[prev] = {follow: [], count: []}
+            if(data.get(prev) == undefined){
+                data.set(prev, {follow: [], repeat: []})
             }
-            else
-                data[word]
-            prev = words[word]
+            var index = data.get(prev).follow.indexOf(word)
+            if(index == -1){
+                data.get(prev).follow.push(word);
+                data.get(prev).repeat.push(1);
+            }
+            else{
+                data.get(prev).repeat[index]++;
+            }
             
         }
     }
-    
+    console.log(data)
 });
-console.log(data)
 console.log("Dict loaded")
 
 http.createServer(function(req, res){
