@@ -34,9 +34,11 @@ lineReader.on('line', function (line) {
             
         }
     }
+    //console.log(data)
+}).on('close',function(){
     console.log(data)
+    console.log("FINISHED LOADED DATA")
 });
-console.log("Dict loaded")
 
 http.createServer(function(req, res){
     var q = url.parse(req.url, true);
