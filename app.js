@@ -6,7 +6,7 @@ const readline = require('readline')
 var data = new Map()
 
 var lineReader = readline.createInterface({
-  input: fs.createReadStream('brooke.txt')
+  input: fs.createReadStream('lyrics.txt')
 });
 
 lineReader.on('line', function (line) {
