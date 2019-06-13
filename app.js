@@ -97,10 +97,8 @@ function getRhyme(prevWord,newWord,choosen){
         }
     }
     if(minIndex==-1){
-        console.log(prevWord+"    "+choosen)
         return choosen
     }else{
-        console.log(prevWord+"    "+data.get(newWord).follow[minIndex])
         return data.get(newWord).follow[minIndex]
     }
 }
