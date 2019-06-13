@@ -16,9 +16,9 @@ lineReader.on('line', function (line) {
         line = line.trim().toLowerCase()
         words = line.split(" ")
         
-        var prev = words[0]
-                
-        for(var i = 1;i<words.length;i++){
+        var prev = "\n";
+        var i = 0;
+        for(i = 0;i<words.length;i++){
             var word = words[i]
             if(data.get(prev) == undefined){
                 data.set(prev, {follow: [], repeat: [],sum:0})
@@ -33,8 +33,24 @@ lineReader.on('line', function (line) {
                 data.get(prev).repeat[index]++;
                 data.get(prev).sum++;
             }
-            
+            prev = words[i]
         }
+        
+        var word = "\n"
+            if(data.get(prev) == undefined){
+                data.set(prev, {follow: [], repeat: [],sum:0})
+            }
+            var index = data.get(prev).follow.indexOf(word)
+            if(index == -1){
+                data.get(prev).follow.push(word);
+                data.get(prev).repeat.push(1);
+                data.get(prev).sum ++;
+            }
+            else{
+                data.get(prev).repeat[index]++;
+                data.get(prev).sum++;
+            }
+        
     }
     //console.log(data)
 }).on('close',function(){
@@ -47,7 +63,6 @@ function Setup(){
     
 }
 function Gen(){
-    
 }
 http.createServer(function(req, res){
     var q = url.parse(req.url, true);
