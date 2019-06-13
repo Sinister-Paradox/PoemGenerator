@@ -3,12 +3,40 @@ const url = require('url');
 const fs = require('fs');
 const readline = require('readline')
 
+var data = {}
 
-fs.readFile('brooke.txt', (err, data) => { 
-    if (err) throw err; 
-  
-    //console.log(data.toString()); 
-})
+var lineReader = readline.createInterface({
+  input: fs.createReadStream('brooke.txt')
+});
+
+
+lineReader.on('line', function (line) {
+    if(line.startsWith("RHYME") || line.startsWith("TITLE")){
+    }
+    else{
+        line = line.trim()
+        words = line.split(" ")
+        
+        var prev = words[0]
+        
+        console.log(line)
+        
+        for(var i = 1;i<words.length;i++){
+            var word = words[i]
+            console.log(data[prev])
+            if(data[prev] == undefined){
+                data[prev] = {follow: [], count: []}
+            }
+            else
+                data[word]
+            prev = words[word]
+            
+        }
+    }
+    
+});
+console.log(data)
+console.log("Dict loaded")
 
 http.createServer(function(req, res){
     var q = url.parse(req.url, true);
@@ -25,6 +53,3 @@ http.createServer(function(req, res){
         return res.end();
     });
 }).listen(8080);
-
-markovData = {};
-startWords = {}
