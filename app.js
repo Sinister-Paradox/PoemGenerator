@@ -40,7 +40,13 @@ lineReader.on('line', function (line) {
     console.log("FINISHED LOADED DATA")
     console.log(generate())
 });
-
+function Setup(){
+    
+    
+}
+function Gen(){
+    
+}
 http.createServer(function(req, res){
     var q = url.parse(req.url, true);
     var filename = "." + q.pathname;
