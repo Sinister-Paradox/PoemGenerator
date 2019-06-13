@@ -21,15 +21,17 @@ lineReader.on('line', function (line) {
         for(var i = 1;i<words.length;i++){
             var word = words[i]
             if(data.get(prev) == undefined){
-                data.set(prev, {follow: [], repeat: []})
+                data.set(prev, {follow: [], repeat: [],sum:0})
             }
             var index = data.get(prev).follow.indexOf(word)
             if(index == -1){
                 data.get(prev).follow.push(word);
                 data.get(prev).repeat.push(1);
+                data.get(prev).sum ++;
             }
             else{
                 data.get(prev).repeat[index]++;
+                data.get(prev).sum++;
             }
             
         }
