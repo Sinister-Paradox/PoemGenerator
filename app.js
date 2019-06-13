@@ -38,6 +38,7 @@ lineReader.on('line', function (line) {
 }).on('close',function(){
     console.log(data)
     console.log("FINISHED LOADED DATA")
+    console.log(generate())
 });
 
 http.createServer(function(req, res){
@@ -55,3 +56,7 @@ http.createServer(function(req, res){
         return res.end();
     });
 }).listen(8080);
+
+function generate(){
+    
+}
