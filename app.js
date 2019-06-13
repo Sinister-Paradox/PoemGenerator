@@ -16,9 +16,9 @@ lineReader.on('line', function (line) {
         line = line.trim().toLowerCase()
         words = line.split(" ")
         
-        var prev = words[0]
-                
-        for(var i = 1;i<words.length;i++){
+        var prev = "\n";
+        var i = 0;
+        for(i = 0;i<words.length;i++){
             var word = words[i]
             if(data.get(prev) == undefined){
                 data.set(prev, {follow: [], repeat: [],sum:0})
@@ -33,21 +33,55 @@ lineReader.on('line', function (line) {
                 data.get(prev).repeat[index]++;
                 data.get(prev).sum++;
             }
-            
+            prev = words[i]
         }
+        
+        var word = "\n"
+            if(data.get(prev) == undefined){
+                data.set(prev, {follow: [], repeat: [],sum:0})
+            }
+            var index = data.get(prev).follow.indexOf(word)
+            if(index == -1){
+                data.get(prev).follow.push(word);
+                data.get(prev).repeat.push(1);
+                data.get(prev).sum ++;
+            }
+            else{
+                data.get(prev).repeat[index]++;
+                data.get(prev).sum++;
+            }
+        
     }
     //console.log(data)
 }).on('close',function(){
-    console.log(data)
     console.log("FINISHED LOADED DATA")
-    console.log(generate())
+    Gen()
 });
-function Setup(){
-    
-    
+function getWord(word){
+    var randomNumber = Math.random()*(data.get(word).sum)
+    var words = data.get(word).follow
+    var k =0
+    var pk = 0
+    for (var i =0;i<words.length;i++){
+        pk += data.get(word).repeat[i]
+        if (randomNumber<pk){
+            return words[i]
+        }
+    }
+    return "\n"
 }
 function Gen(){
+    var len = 1000
+    var rap = ""
     
+    var word =getWord("i") 
+    for (var i =0;i<len;++i){
+        word =getWord(word)
+        rap+= word
+        
+        rap+=" "
+    }
+    console.log(rap)
 }
 http.createServer(function(req, res){
     var q = url.parse(req.url, true);
@@ -64,7 +98,3 @@ http.createServer(function(req, res){
         return res.end();
     });
 }).listen(8080);
-
-function generate(){
-    
-}
